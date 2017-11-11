@@ -1,4 +1,12 @@
 
+#
+# Prepare data 
+#
+x1 <- head(iris$Sepal.Length, 100)
+x2 <- head(iris$Sepal.Width, 100)
+x  <- matrix(cbind(x1, x2), nrow=100, ncol = 2)
+y  <- append(rep(1, 50), rep(0, 50))
+
 
 n.iter = 10000                                                # number of iterations
 n.obs = nrow(x)                                               # number of samples / observations
@@ -18,4 +26,4 @@ for(i in 1:n.iter) {
 }
 
 w                                                             # final weights
-sum(y.hat != y)                                               # misclassification rate
+sum(y.hat != y)/n.obs                                         # misclassification rate
