@@ -42,7 +42,6 @@ for(i in 1:n.iter) {
                                                               #    manual decay
                                                               # feels like monte carlo simulation all over again, um
   }
-                                                              # cost function here ?
 }
                                                               # show 'n tell
 w                                                             # weights       
