@@ -30,6 +30,10 @@ Normalize inputs
 Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
+TF    .... google  
+CNTK  .... msft  
+mxnet .... amazon  
+caffe2 ... facebook  
 
 ### Course 3: Structuring Machine Learning Projects
 #### Week 1: ML Strategy (1)
