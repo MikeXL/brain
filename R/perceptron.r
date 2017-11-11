@@ -28,3 +28,4 @@ for(i in 1:n.iter) {
 
 w                                                             # final weights
 sum(y.hat != y)/n.obs                                         # misclassification rate
+table(y, y.hat)                                               # confusion matrix
