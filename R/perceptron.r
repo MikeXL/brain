@@ -1,15 +1,25 @@
 
-#
-# Prepare data 
-#
+                                                              #
+                                                              # Prepare data for model 
+                                                              #            species ~ Sepal.Length + Sepal.Width
+                                                              #
 x1 <- head(iris$Sepal.Length, 100)                            # iris sepal length
 x2 <- head(iris$Sepal.Width, 100)                             # iris sepal width
 x  <- matrix(cbind(x1, x2), nrow=100, ncol = 2)                
-y  <- append(rep(1, 50), rep(-1, 50))                         # setosa = 1, versicolor = -1
+y  <- append(rep(1, 50), rep(-1, 50))                         # setosa = 1, versicolor = -1, discard virginica
 
 
+                                                              #
+                                                              # vannila neural network 
+                                                              #        2 inputs
+                                                              #        3 layers (input, hidden, output)
+                                                              #        1 perceptron
+                                                              #        1 output with 2 levels
+                                                              #
 n.iter <- 10000                                               # number of iterations
-epoch  <- 1                                                   # epoch, mini batch
+epoch  <- 1                                                   # mini batch
+                                                              #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
+                                                              #   RoT: can fit into CPU/GPU memory
 n.obs  <- nrow(x)                                             # number of samples / observations
 n.parm <- ncol(x)                                             # number of parameters / input / features
 b      <- 0                                                   # bias
