@@ -31,8 +31,6 @@ for(i in 1:n.iter) {
   for(j in 1:n.obs){
     y.hat[j] = sign(tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b))    # tanh activation
     eta <- y[j] - y.hat[j]                                    # error
-                                                              # loss 
-                                                              # and cost function here ?
     w[1] = w[1] + alpha * eta * x[j,1]                        # update w1, stochastic gradient descent
     w[2] = w[2] + alpha * eta * x[j,2]                        # update w2
     b    = b    + alpha * eta * b                             # update bias
@@ -42,6 +40,14 @@ for(i in 1:n.iter) {
                                                               #    manual decay
                                                               # feels like monte carlo simulation all over again, um
   }
+                                                              # loss L(...)
+                                                              # and cost function J(...) here ?
+                                                              # early stop to avoid overfitting
+                                                              # batch norm ?
+                                                              # reduce cov shift through layers
+                                                              # test time considerations of mu, sigma for normalization
+                                                              # estimate using exponentially weighted average
+                                                              # across mini batches
 }
                                                               # show 'n tell
 w                                                             # weights       
