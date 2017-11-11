@@ -48,3 +48,6 @@ w                                                             # weights
 b                                                             # bias
 sum(y.hat != y)/n.obs                                         # misclassification rate
 table(y, y.hat)                                               # confusion matrix
+
+                                                              # now 
+                                                              # how to store the model for future prediction ?
