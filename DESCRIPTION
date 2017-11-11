@@ -1,0 +1,14 @@
+
+
+Package: BRAIN
+Title: Fun with vanilla neural network
+Version: 0.0.3
+Date: 2017-11-10
+Author: M.J. Liu @TigerPlusDragon
+Maintainer: Mike <mike@mscanada.net>
+Description: an perceptron that builds vanilla neural network
+License: BSD NEW
+URL: http://mike.mscanada.net
+BugReports: http://github.com/MikeXL/brain
+NeedsCompilation: no
+Packaged: 2017-12-24 05:10:43 UTC; Mike
