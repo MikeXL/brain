@@ -3,6 +3,10 @@
                                                               # taking the input, excite neurons and produce adenosine
                                                               # then it comes down to reduce noises (optimization) 
                                                               # and the speed (optimization again for network converge)
+                                                              # most of the business problems does not require CNN or RNN
+                                                              # rather solved by single or double hidden layer
+                                                              # vanilla neural network
+                                                              
 
                                                               #
                                                               # Prepare data for model 
@@ -64,3 +68,5 @@ table(y, y.hat)                                               # confusion matrix
 
                                                               # now 
                                                               # how to store the model for future prediction ?
+
+                                                              # dropouts in deep network
