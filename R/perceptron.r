@@ -31,11 +31,18 @@ for(i in 1:n.iter) {
   for(j in 1:n.obs){
     y.hat[j] = sign(tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b))    # tanh activation
     eta <- y[j] - y.hat[j]                                    # error
+                                                              # loss 
+                                                              # and cost function here ?
     w[1] = w[1] + alpha * eta * x[j,1]                        # update w1, stochastic gradient descent
     w[2] = w[2] + alpha * eta * x[j,2]                        # update w2
     b    = b    + alpha * eta * b                             # update bias
+    # alpha = alpha /(1+decay_rate * epoch)                   # learning rate decay, might be last thing to try for tuning
+                                                              #    alpha = power(.95, epoch) * alpha
+                                                              #    alpha = k / sqrt(epoch)   * alpha
+                                                              #    manual decay
                                                               # feels like monte carlo simulation all over again, um
   }
+                                                              # cost function here ?
 }
                                                               # show 'n tell
 w                                                             # weights       
