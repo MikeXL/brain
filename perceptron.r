@@ -1,4 +1,9 @@
 
+                                                              # the idea of nn is quite simple and straightforward
+                                                              # taking the input, excite neurons and produce adenosine
+                                                              # then it comes down to reduce noises (optimization) 
+                                                              # and the speed (optimization again for network converge)
+
                                                               #
                                                               # Prepare data for model 
                                                               #            species ~ Sepal.Length + Sepal.Width
