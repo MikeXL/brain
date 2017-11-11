@@ -3,7 +3,7 @@ a gleeful study of neural network and implementing an _vanilla_ nn
 
 _inspired by Andrew Ng's [deep learning courses][dl]_  
 _another good MooC I'd like to take [Fast AI][fast]_  
-  
+
 Cheers
 
 ![perceptron][neuron]
@@ -16,10 +16,18 @@ Deep Learning Courses - my notes anyway
 #### Week 1: Introduction to deep learning
 #### Week 2: Neural Network Basics
 #### Week 3: Shallow neural networks
+choice of activation function - identity, sigmoid, cos, tanh  
+random initialization of weight parameters
+
 #### Week 4: Deep Neural Networks
+forward and backward propagation  
+parameters and Hyperparameter
 
 ### Course 2: Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
 #### Week 1: Practical aspects of Deep Learning
+Regularization  
+Normalize inputs
+Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
 
@@ -31,6 +39,8 @@ Another good practice is always calculate the lift based on baseline performance
 #### Week 2: ML Strategy (2)
 Build first system quickly, then iteration. Keep the try-n-err, hurray for progress and also celebrate failure.  
 14:55 .. [celebrate failure][utube] at a ted talk.. that is the RIGHT attitude in this amazing and challenging field... ;)
+
+> if you are applying to your machine learning algorithms to a new application, and if your main goal is to build something that works, as opposed to if your main goal is to invent a new machine learning algorithm which is a different goal, then your main goal is to get something that works really well. I'd encourage you to build something quick and dirty. Use that to do bias/variance analysis, use that to do error analysis and use the results of those analysis to help you prioritize where to go next.
 
 ### Course 4: Convolutional Neural Networks
 #### Week 1: Foundations of Convolutional Neural Networks
