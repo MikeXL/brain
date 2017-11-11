@@ -58,6 +58,14 @@ CNN is here to solve a particular problem, _computer vision_.
 ### Course 5: Sequence Models
 Furthermore, RNN is here to solve particular set of problems, _speech recognition, music synthesis, translation, NLP_.  
 
+
+P.P.S
+To load the source and _boldly_ go
+```
+source("https://raw.githubusercontent.com/MikeXL/brain/master/perceptron.r")
+make.it.so()
+```
+
 [neuron]: https://pbs.twimg.com/media/DOVmnXtUIAAuzeg.jpg:large
 [dl]: http://deeplearning.ai "deep learning courses"
 [fast]: http://fast.ai
