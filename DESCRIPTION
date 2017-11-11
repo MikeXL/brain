@@ -2,8 +2,8 @@
 
 Package: BRAIN
 Title: Fun with vanilla neural network
-Version: 0.0.3
-Date: 2017-11-10
+Version: 0.0.9
+Date: 2017-11-11
 Author: M.J. Liu @TigerPlusDragon
 Maintainer: Mike <mike@mscanada.net>
 Description: an perceptron that builds vanilla neural network
