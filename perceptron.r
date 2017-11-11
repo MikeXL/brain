@@ -25,7 +25,9 @@ n.parm <- ncol(x)                                             # number of parame
 b      <- 0                                                   # bias
 alpha <- 0.1                                                  # learning rate
 y.hat <- rep(0, n.obs)                                        # predications y.hat, baseline
-w <- rnorm(2)                                                 # initialize weight
+w <- rnorm(2) * .01                                           # initialize weight, start small
+                                                              # large w would end up at the flat side of tanh
+                                                              # slow down the gradient descent, slow to converge for whole nn
 
 for(i in 1:n.iter) {
   for(j in 1:n.obs){
