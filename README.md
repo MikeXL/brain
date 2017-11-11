@@ -30,6 +30,7 @@ Normalize inputs
 Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
+Hyperparameter {learning rate alpha, bias, epoch, }
 TF    .... google  
 CNTK  .... msft  
 mxnet .... amazon  
@@ -47,13 +48,15 @@ Build first system quickly, then iteration. Keep the try-n-err, hurray for progr
 > if you are applying to your machine learning algorithms to a new application, and if your main goal is to build something that works, as opposed to if your main goal is to invent a new machine learning algorithm which is a different goal, then your main goal is to get something that works really well. I'd encourage you to build something quick and dirty. Use that to do bias/variance analysis, use that to do error analysis and use the results of those analysis to help you prioritize where to go next.
 
 ### Course 4: Convolutional Neural Networks
+CNN is here to solve a particular problem, _computer vision_.
+
 #### Week 1: Foundations of Convolutional Neural Networks
 #### Week 2: Deep convolutional models: case studies
 #### Week 3: Object detection
 #### Week 4: Special applications: Face recognition & Neural style transfer
 
 ### Course 5: Sequence Models
-
+Furthermore, RNN is here to solve particular set of problems, _speech recognition, music synthesis, translation, NLP_.  
 
 [neuron]: https://pbs.twimg.com/media/DOVmnXtUIAAuzeg.jpg:large
 [dl]: http://deeplearning.ai "deep learning courses"
