@@ -25,7 +25,7 @@ make.it.so <- function(){
                                                                 #        1 perceptron
                                                                 #        1 output with 2 levels
                                                                 #
-  n.iter <- 1000                                                  # number of iterations
+  n.iter <- 5000                                                  # number of iterations
   epoch  <- 1                                                   # mini batch, no used here
                                                                 #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                 #   RoT: can fit into CPU/GPU memory
@@ -38,33 +38,28 @@ make.it.so <- function(){
   alpha  <- 0.1                                                 # learning rate
   y.hat  <- rep(0, n.obs)                                       # predications y.hat, baseline
   prob   <- rep(0, n.obs)                                       #   probability
+  loss   <- rep(0, n.iter)                                      #   record log loss for each iteration
   w      <- rnorm(2) * .01                                      # initialize weight, start small
   # w    <- w/sum(w^2)                                          # normalize the initialization, overkill for this ?
                                                                 # large w would end up at the flat side of tanh
                                                                 # slow down the gradient descent, slow to converge for whole nn
+  eps    <- 1e-15                                               # epsilon  
   
-  fav    <- matrix(nrow=n.iter, ncol=5)                         # record the error / cost / objective for 
-                                                                #     picking the best iteration or early stopping
-  colnames(fav) <- c("mae",                                     # mean absolution error
-                     "mse",                                     # mean squared error
-                     "log.loss",                                # log loss
-                     "dl",
-                     "mis"                                      # misclassification
-                     )
-
   for(i in 1:n.iter) {
     for(j in 1:n.obs){
-      p <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)
-      prob[j] <- ifelse(p>0, p, 1+p)
-      prob[j] <- pmin(pmax(prob[j], 1e-15), 1-1e-15)
-      y.hat[j] = sign(p)    # tanh activation
+      p <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)                # tanh activation
+      prob[j] <- ifelse(p>0, p, 1+p)                            # probablity for y.hat==1
+      prob[j] <- pmin(pmax(prob[j], 1e-15), 1-1e-15)            # account 0 and 1 value for log loss
+      y.hat[j] = sign(p)                                        # predicated y
       
                                                                 # other activation function like identity linear, cos, sigmoid
                                                                 # softmax for multi-class target
                                                                 # doubting the function of sign, as it would miss the value 0
                                                                 # perhaps better be explicit on >=0 than using sign
       eta  <- y[j] - y.hat[j]                                   # error
-      ll   <- -(y * log(y.hat) + (1-y) * log(1-y.hat))          # log loss
+                                                                # if this is kept, then MAE, MSE can be calculated later
+                                                                # see previous commits, MAE, MSE plots were removed
+                                                                # as they really not a good indicator
       w[1] <- w[1] + alpha * eta * x[j,1]                       # update w1, stochastic gradient descent
       w[2] <- w[2] + alpha * eta * x[j,2]                       # update w2
       b    <- b    + alpha * eta * b                            # update bias
@@ -75,12 +70,14 @@ make.it.so <- function(){
                                                                 # feels like monte carlo simulation all over again, um
       
     }
-    fav[i, 1] <- mean(abs(y-y.hat))                             # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
-    fav[i, 2] <- mean((y-y.hat)^2)                              #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
-    
-    fav[i, 3] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))                                                         
-    fav[i, 4] <- -mean(y/prob + (1-y)/(1-prob))
-    fav[i, 5] <- mean(y!=y.hat)
+                                                                # log loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
+                                                                # kaggle usually uses log loss to score classifier performance
+    # loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))  
+                                                                # derivative log loss seems more appropriate for nn
+                                                                # 
+                                                                # 
+                                                                #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
+    loss[i] <- -mean(y/prob+(1-y)/(1-prob))                   
                                                                 # early stop to avoid overfitting
                                                                 # but how ?
                                                                 #  monitoring the converge trend of w ?
@@ -94,18 +91,15 @@ make.it.so <- function(){
                                                                 # across mini batches
     
   }
-                                                                # show 'n tell
-  print(w)                                                      # weights       
-  print(b)                                                      # bias
-  print(sum(y.hat != y)/n.obs)                                  # misclassification rate
-  print(table(y, y.hat))                                        # confusion matrix
-  print(fav)
-  par(mfrow=c(3,2))
-  plot(fav[,1], ylab="MAE")
-  plot(fav[,2], ylab="MSE")
-  plot(fav[,3], ylab="Log Loss")
-  plot(fav[,4], ylab="derivative log loss")
-  plot(fav[,5], ylab="misclassification rate")                                                              # and now 
+  cat("Results for last iteration:", i)                         # show 'n tell
+  cat("w1 = ", w[1])                                            # weights of last iteration      
+  cat("w2 = ", w[2])
+  cat("bias = ", b)                                             # bias of last iteration
+  cat("Misclassification rate:", sum(y.hat != y)/n.obs)         # misclassification rate of last iteration
+  cat("Confusion Matrix:\n")
+  print(table(y, y.hat))                                        # confusion matrix of last iteration
+  plot(loss, xlab="# iteration", ylab="log loss", type="l")     # log loss plot to see convergence 
+  
                                                                 # how to store the model for future prediction ?
                                                                 # pretty much doing the high school math for prediction 
                                                                 #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
