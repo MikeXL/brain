@@ -4,8 +4,8 @@
                                                                 # then it comes down to reduce noises (optimization) 
                                                                 # and the speed (optimization again for network converge)
                                                                 # most of the business problems does not require CNN or RNN
-                                                                # rather solved by single or double hidden layer
-                                                                # vanilla neural network
+                                                                # rather solved by single or double hidden layer of
+                                                                # vanilla neural networks
                                                               
 make.it.so <- function(){
                                                                 #
@@ -19,7 +19,7 @@ make.it.so <- function(){
   
   
                                                                 #
-                                                                # vannila neural network 
+                                                                # vannila it is
                                                                 #        2 inputs
                                                                 #        3 layers (input, hidden, output)
                                                                 #        1 perceptron
@@ -53,12 +53,19 @@ make.it.so <- function(){
                                                                 # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
                                                                 # and cost function J(...) here ?
+    
                                                                 # early stop to avoid overfitting
+                                                                # but how ?
+                                                                #  monitoring the converge trend of w ?
+                                                                #  cross validation to compare training error and validation error ?
+    
                                                                 # batch norm ?
                                                                 # reduce cov shift through layers
+    
                                                                 # test time considerations of mu, sigma for normalization
                                                                 # estimate using exponentially weighted average
                                                                 # across mini batches
+    
   }
                                                                 # show 'n tell
   print(w)                                                      # weights       
@@ -68,6 +75,8 @@ make.it.so <- function(){
   
                                                                 # and now 
                                                                 # how to store the model for future prediction ?
+                                                                # pretty much doing the high school math for prediction as we have w and b
+                                                                #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
   
                                                                 # dropouts in deep network
 }
