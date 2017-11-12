@@ -30,7 +30,8 @@ Normalize inputs
 Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
-Hyperparameter {learning rate alpha, bias, epoch, }
+Hyperparameter {learning rate alpha, bias, epoch, }  
+softmax  
 and the frameworks backed by giants
 TF    .... google  
 CNTK  .... msft  
@@ -59,9 +60,14 @@ Movtivations of CNN:
 
 #### Week 2: Deep convolutional models: case studies
 [inception network][inception]  
-paper [Szegedy et al., 2014, _Going Deeper with Convolutions_]
+paper [Szegedy et al., 2014, _Going Deeper with Convolutions_]  
+Transfer Learning to utilize pre-trained models and weights.
+
 #### Week 3: Object detection
 #### Week 4: Special applications: Face recognition & Neural style transfer
+Neural style transfer,  computer can do art too, not just art, but Picasso art.  
+[Gatys et al., 2015. _A neural algorithm of artistic style_]
+
 
 ### Course 5: Sequence Models
 Furthermore, RNN is here to solve particular set of problems, _speech recognition, music synthesis, translation, NLP_.  
