@@ -79,7 +79,7 @@ make.it.so <- function(){
   
                                                                 # and now 
                                                                 # how to store the model for future prediction ?
-                                                                # pretty much doing the high school math for prediction as we have w and b
+                                                                # pretty much doing the high school math for prediction 
                                                                 #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
   
                                                                 # dropouts in deep network
