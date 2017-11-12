@@ -37,7 +37,7 @@ make.it.so <- function(){
   w      <- rnorm(2) * .01                                      # initialize weight, start small
                                                                 # large w would end up at the flat side of tanh
                                                                 # slow down the gradient descent, slow to converge for whole nn
-  scores <- matrix(nrow=100*100, ncol=8)
+  scores <- matrix(nrow=100000, ncol=8)
   colnames(scores) <- c("iter", "w1", "w2", "x1", "x2", "b", "y", "y.hat")
 
   for(i in 1:n.iter) {
@@ -52,14 +52,14 @@ make.it.so <- function(){
                                                                 #    alpha = k / sqrt(epoch)   * alpha
                                                                 #    manual decay
                                                                 # feels like monte carlo simulation all over again, um
-      scores[i,1] <- i
-      scores[i,2] <- w[1]
-      scores[i,3] <- w[2]
-      scores[i,4] <- x[j,1]
-      scores[i,5] <- x[j,2]
-      scores[i,6] <- b
-      scores[i,7] <- y[j]
-      scores[i,8] <- y.hat[j]
+      scores[(i-1)*n.obs+j,1] <- i
+      scores[(i-1)*n.obs+j,2] <- w[1]
+      scores[(i-1)*n.obs+j,3] <- w[2]
+      scores[(i-1)*n.obs+j,4] <- x[j,1]
+      scores[(i-1)*n.obs+j,5] <- x[j,2]
+      scores[(i-1)*n.obs+j,6] <- b
+      scores[(i-1)*n.obs+j,7] <- y[j]
+      scores[(i-1)*n.obs+j,8] <- y.hat[j]
     }
                                                                 # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
@@ -76,9 +76,12 @@ make.it.so <- function(){
   b                                                             # bias
   sum(y.hat != y)/n.obs                                         # misclassification rate
   table(y, y.hat)                                               # confusion matrix
-  par(mfrow=c(2,1))
+  par(mfrow=c(3,1))
   plot(w1 ~ iter, data=scores)
   plot(w2 ~ iter, data=scores)
+  df <- data.frame(scores)
+  df %>% group_by(iter) %>% summarise(mis=sum(y!=y.hat)/n.obs) %>% plot(mis~iter, type="l")
+  
                                                                 # now 
                                                                 # how to store the model for future prediction ?
   
