@@ -50,11 +50,13 @@ Build first system quickly, then iteration. Keep the try-n-err, hurray for progr
 
 ### Course 4: Convolutional Neural Networks
 CNN is here to solve a particular problem, _computer vision_.
-Movtivations of CNN: 
+
+#### Week 1: Foundations of Convolutional Neural Networks
+Movtivations of CNN:  
 1. Parameter sharing
 2. Sparsity of connections
 3. Equivariance (briefly mentioned, as observation)
-#### Week 1: Foundations of Convolutional Neural Networks
+
 #### Week 2: Deep convolutional models: case studies
 #### Week 3: Object detection
 #### Week 4: Special applications: Face recognition & Neural style transfer
