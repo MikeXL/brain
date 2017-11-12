@@ -31,6 +31,7 @@ Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
 Hyperparameter {learning rate alpha, bias, epoch, }
+and the frameworks backed by giants
 TF    .... google  
 CNTK  .... msft  
 mxnet .... amazon  
@@ -49,7 +50,10 @@ Build first system quickly, then iteration. Keep the try-n-err, hurray for progr
 
 ### Course 4: Convolutional Neural Networks
 CNN is here to solve a particular problem, _computer vision_.
-
+Movtivations of CNN: 
+1. Parameter sharing
+2. Sparsity of connections
+3. Equivariance (briefly mentioned, as observation)
 #### Week 1: Foundations of Convolutional Neural Networks
 #### Week 2: Deep convolutional models: case studies
 #### Week 3: Object detection
