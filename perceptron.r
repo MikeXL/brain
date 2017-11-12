@@ -47,10 +47,12 @@ make.it.so <- function(){
   
   for(i in 1:n.iter) {
     for(j in 1:n.obs){
-      p <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)                # tanh activation
-      prob[j] <- ifelse(p>0, p, 1+p)                            # probablity for y.hat==1
-      prob[j] <- pmin(pmax(prob[j], 1e-15), 1-1e-15)            # account 0 and 1 value for log loss
-      y.hat[j] = sign(p)                                        # predicated y
+      p        <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)         # tanh activation
+      prob[j]  <- ifelse(p>0, p, 1+p)                           # probablity for y.hat==1
+      prob[j]  <- pmin(pmax(prob[j], 1e-15), 1-1e-15)           # account 0 and 1 value for log loss
+      y.hat[j] <- sign(p)                                       # predicated y
+                                                                # perhaps better use to account 0
+      # y.hat    <- (p>=0)
       
                                                                 # other activation function like identity linear, cos, sigmoid
                                                                 # softmax for multi-class target
@@ -72,12 +74,12 @@ make.it.so <- function(){
     }
                                                                 # log loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 # kaggle usually uses log loss to score classifier performance
-    # loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))  
+    loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))  
                                                                 # derivative log loss seems more appropriate for nn
                                                                 # 
                                                                 # 
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
-    loss[i] <- -mean(y/prob+(1-y)/(1-prob))                   
+    # loss[i] <- -mean(y/prob+(1-y)/(1-prob))                   
                                                                 # early stop to avoid overfitting
                                                                 # but how ?
                                                                 #  monitoring the converge trend of w ?
