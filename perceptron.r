@@ -25,7 +25,7 @@ make.it.so <- function(){
                                                                 #        1 perceptron
                                                                 #        1 output with 2 levels
                                                                 #
-  n.iter <- 10000                                               # number of iterations
+  n.iter <- 1000                                               # number of iterations
   epoch  <- 1                                                   # mini batch
                                                                 #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                 #   RoT: can fit into CPU/GPU memory
@@ -37,7 +37,9 @@ make.it.so <- function(){
   w      <- rnorm(2) * .01                                      # initialize weight, start small
                                                                 # large w would end up at the flat side of tanh
                                                                 # slow down the gradient descent, slow to converge for whole nn
-  
+  scores <- matrix(nrow=100*100, ncol=8)
+  colnames(scores) <- c("iter", "w1", "w2", "x1", "x2", "b", "y", "y.hat")
+
   for(i in 1:n.iter) {
     for(j in 1:n.obs){
       y.hat[j] = sign(tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b))    # tanh activation
@@ -50,6 +52,14 @@ make.it.so <- function(){
                                                                 #    alpha = k / sqrt(epoch)   * alpha
                                                                 #    manual decay
                                                                 # feels like monte carlo simulation all over again, um
+      scores[i,1] <- i
+      scores[i,2] <- w[1]
+      scores[i,3] <- w[2]
+      scores[i,4] <- x[j,1]
+      scores[i,5] <- x[j,2]
+      scores[i,6] <- b
+      scores[i,7] <- y[j]
+      scores[i,8] <- y.hat[j]
     }
                                                                 # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
@@ -66,7 +76,9 @@ make.it.so <- function(){
   b                                                             # bias
   sum(y.hat != y)/n.obs                                         # misclassification rate
   table(y, y.hat)                                               # confusion matrix
-  
+  par(mfrow=c(2,1))
+  plot(w1 ~ iter, data=scores)
+  plot(w2 ~ iter, data=scores)
                                                                 # now 
                                                                 # how to store the model for future prediction ?
   
