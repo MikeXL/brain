@@ -25,13 +25,13 @@ make.it.so <- function(){
                                                                 #        1 perceptron
                                                                 #        1 output with 2 levels
                                                                 #
-  n.iter <- 1000                                               # number of iterations
-  epoch  <- 1                                                   # mini batch
+  n.iter <- 1000                                                # number of iterations
+  epoch  <- 1                                                   # mini batch, no used here
                                                                 #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                 #   RoT: can fit into CPU/GPU memory
   n.obs  <- nrow(x)                                             # number of samples / observations
   n.parm <- ncol(x)                                             # number of parameters / input / features
-  b      <- 0                                                   # bias
+  b      <- 0                                                   # bias, not really used here
   alpha  <- 0.1                                                 # learning rate
   y.hat  <- rep(0, n.obs)                                       # predications y.hat, baseline
   w      <- rnorm(2) * .01                                      # initialize weight, start small
@@ -40,6 +40,10 @@ make.it.so <- function(){
   for(i in 1:n.iter) {
     for(j in 1:n.obs){
       y.hat[j] = sign(tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b))    # tanh activation
+                                                                # other activation function like identity linear, cos, sigmoid
+                                                                # softmax for multi-class target
+                                                                # doubting the function of sign, as it would miss the value 0
+                                                                # perhaps better be explicit on >=0 than using sign
       eta <- y[j] - y.hat[j]                                    # error
       w[1] = w[1] + alpha * eta * x[j,1]                        # update w1, stochastic gradient descent
       w[2] = w[2] + alpha * eta * x[j,2]                        # update w2
