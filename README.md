@@ -58,6 +58,8 @@ Movtivations of CNN:
 3. Equivariance (briefly mentioned, as observation)
 
 #### Week 2: Deep convolutional models: case studies
+[inception network][inception]  
+paper [Szegedy et al., 2014, _Going Deeper with Convolutions_]
 #### Week 3: Object detection
 #### Week 4: Special applications: Face recognition & Neural style transfer
 
@@ -76,3 +78,4 @@ make.it.so()
 [dl]: http://deeplearning.ai "deep learning courses"
 [fast]: http://fast.ai
 [utube]: https://youtu.be/40riCqvRoMs?t=14m45s "celebrate failure"
+[inception]: http://knowyourmeme.com/memes/we-need-to-go-deeper
