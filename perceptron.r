@@ -75,10 +75,10 @@ make.it.so <- function(){
                                                                 # feels like monte carlo simulation all over again, um
       
     }
-    fav[i, 1] <- mean(abs(y-y.hat))                                                            # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
-    fav[i, 2] <- mean((y-y.hat)^2)                                                            #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
+    fav[i, 1] <- mean(abs(y-y.hat))                             # loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
+    fav[i, 2] <- mean((y-y.hat)^2)                              #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
     
-    fav[i, 3] <-  - (sum(y * log(prob) + (1 - y) * log(1 - prob))) / length(y)                                                           # and cost function J(...) here ?
+    fav[i, 3] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))                                                         
     fav[i, 4] <- -mean(y/prob + (1-y)/(1-prob))
     fav[i, 5] <- mean(y!=y.hat)
                                                                 # early stop to avoid overfitting
@@ -100,12 +100,12 @@ make.it.so <- function(){
   print(sum(y.hat != y)/n.obs)                                  # misclassification rate
   print(table(y, y.hat))                                        # confusion matrix
   print(fav)
-  par(mfrow=c(2,2))
+  par(mfrow=c(3,2))
   plot(fav[,1], ylab="MAE")
   plot(fav[,2], ylab="MSE")
   plot(fav[,3], ylab="Log Loss")
-  plot(fav[,4], ylab="misclassifcation rate")
-                                                                # and now 
+  plot(fav[,4], ylab="derivative log loss")
+  plot(fav[,5], ylab="misclassification rate")                                                              # and now 
                                                                 # how to store the model for future prediction ?
                                                                 # pretty much doing the high school math for prediction 
                                                                 #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
