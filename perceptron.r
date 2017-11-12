@@ -61,10 +61,10 @@ make.it.so <- function(){
                                                                 # across mini batches
   }
                                                                 # show 'n tell
-  w                                                             # weights       
-  b                                                             # bias
-  sum(y.hat != y)/n.obs                                         # misclassification rate
-  table(y, y.hat)                                               # confusion matrix
+  print(w)                                                      # weights       
+  print(b)                                                      # bias
+  print(sum(y.hat != y)/n.obs)                                  # misclassification rate
+  print(table(y, y.hat))                                        # confusion matrix
   
                                                                 # and now 
                                                                 # how to store the model for future prediction ?
