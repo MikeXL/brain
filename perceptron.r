@@ -39,7 +39,7 @@
                                                                     # again, some calls parameters, some calls input, while others call features
                                                                     # patato (perteito, pertahto)
                                                                     #
-make.it.so <- function(){                                           #
+make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
                                                                     # Prepare data for model 
                                                                     #            species ~ Sepal.Length + Sepal.Width
@@ -56,13 +56,13 @@ make.it.so <- function(){                                           #
                                                                     #        1 perceptron
                                                                     #        1 output with 2 levels
                                                                     #
-  n.iter <- 5000                                                    # number of iterations
+  n.iter <- iter                                                    # number of iterations
   epoch  <- 1                                                       # mini batch, no used here
                                                                     #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                     #   RoT: can fit into CPU/GPU memory
   n.obs  <- nrow(x)                                                 # number of samples / observations
   n.parm <- ncol(x)                                                 # number of parameters / input / features
-  b      <- 0.01                                                    # bias, not really used here, or could try out .01
+  b      <- bias                                                    # bias, not really used here, or could try out .01
                                                                     #       mind bias is per neuron, 
                                                                     #       and can be initialized the same way as weights
   alpha  <- 0.1                                                     # learning rate
@@ -140,7 +140,7 @@ make.it.so <- function(){                                           #
                                                                     #
                                                                     # how to store the model for future prediction ?
                                                                     # pretty much doing the high school math for prediction 
-                                                                    #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
+                                                                    #     pred = tanh(w1 * x1 + w2 * x2 + b)
                                                                     #
                                                                     # dropouts in deep network
 }                                                                   # // MAKE IT SO //
