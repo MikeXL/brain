@@ -40,6 +40,10 @@
                                                                     # again, some calls parameters, some calls input, 
                                                                     # while others call features; patato (perteito, pertahto)
                                                                     #
+                                                                    # MJ LOG: 0112.131117
+                                                                    #
+                                                                    # set two parameters for iterations and bias
+                                                                    #
 make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
                                                                     # Prepare data for model 
