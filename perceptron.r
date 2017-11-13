@@ -14,6 +14,26 @@
                                                                 # most of the business problems does not require CNN or RNN
                                                                 # rather solved by single or double hidden layer of
                                                                 # vanilla neural networks
+                                                                #
+                                                                # MJ LOG: 2200.121117
+                                                                #
+                                                                # for choosing number of layers
+                                                                #     One hidden layer is sufficient for the large majority of problems.
+                                                                #     It is just huh?!
+                                                                #
+                                                                # 0 - Only capable of representing linear separable functions or decisions.
+                                                                # 1 - Can approximate any function that contains a continuous mapping
+                                                                #     from one finite space to another.
+                                                                # 2 - Can represent an arbitrary decision boundary to arbitrary accuracy
+                                                                #     with rational activation functions and can approximate any smooth
+                                                                #     mapping to any accuracy.
+                                                                #
+                                                                # for choosing number of neurons
+                                                                #     n = n.obs / (2 * (n.parm + n.target))
+                                                                #     n = sqrt (n.parm * n.target)
+                                                                #
+                                                                # again, some calls parameters, some calls input, while others call features
+                                                                # patato (perteito, pertahto)
                                                             
 make.it.so <- function(){
                                                                 #
@@ -56,19 +76,19 @@ make.it.so <- function(){
   for(i in 1:n.iter) {
     for(j in 1:n.obs){
       p        <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)         # tanh activation
+                                                                # other activation function like identity linear, cos, sigmoid
+                                                                # softmax for multi-class target
       prob[j]  <- ifelse(p>0, p, 1+p)                           # probablity for y.hat==1
       prob[j]  <- pmin(pmax(prob[j], 1e-15), 1-1e-15)           # account 0 and 1 value for log loss
       y.hat[j] <- sign(p)                                       # predicated y
                                                                 # perhaps better use to account 0
-      # y.hat    <- (p>=0)
-      
-                                                                # other activation function like identity linear, cos, sigmoid
-                                                                # softmax for multi-class target
                                                                 # doubting the function of sign, as it would miss the value 0
                                                                 # perhaps better be explicit on >=0 than using sign
+                                                                # y.hat    <- (p>=0)
       eta  <- y[j] - y.hat[j]                                   # error
                                                                 # if this is kept, then MAE, MSE can be calculated later
                                                                 # see previous commits, MAE, MSE plots were removed
+                                                                # loss     <- -(y * log(prob) + (1 - y) * log(1 - prob))
                                                                 # as they really not a good indicator
       w[1] <- w[1] + alpha * eta * x[j,1]                       # update w1, stochastic gradient descent
       w[2] <- w[2] + alpha * eta * x[j,2]                       # update w2
@@ -82,15 +102,20 @@ make.it.so <- function(){
     }
                                                                 # log loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 # kaggle usually uses log loss to score classifier performance
+                                                                # might be a bad naming convention here
+                                                                # some say loss and cost are synonymous
+                                                                # some say loss is for observation (sample) computation,    
+                                                                #          cost is for full data set
+                                                                #     objective is for gernal naming of the objective function
+                                                                # I'm like whatever, just pick the one you like
     loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))  
                                                                 # derivative log loss seems more appropriate for nn
-                                                                # 
-                                                                # 
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
-    # loss[i] <- -mean(y/prob+(1-y)/(1-prob))                   
+                                                                # dL[i] <- -mean(y/prob+(1-y)/(1-prob))                   
                                                                 # early stop to avoid overfitting
-                                                                # but how ?
+                                                                # but when ?
                                                                 #  monitoring the converge trend of w ?
+                                                                #  monitoring log loss or derivate log loss
                                                                 #  cross validation to compare training error and validation error ?
     
                                                                 # batch norm ?
@@ -101,6 +126,7 @@ make.it.so <- function(){
                                                                 # across mini batches
     
   }
+
   cat("Results for last iteration:", i)                         # show 'n tell
   cat("w1 = ", w[1])                                            # weights of last iteration      
   cat("w2 = ", w[2])
