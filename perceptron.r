@@ -131,12 +131,12 @@ make.it.so <- function(){
     
   }
 
-  cat("Results for last iteration:", i)                         # show 'n tell
-  cat("w1 = ", w[1])                                            # weights of last iteration      
-  cat("w2 = ", w[2])
-  cat("bias = ", b)                                             # bias of last iteration
-  cat("Misclassification rate:", sum(y.hat != y)/n.obs)         # misclassification rate of last iteration
-  cat("Confusion Matrix:\n")
+  cat("Results for last iteration:", i, "\n")                   # show 'n tell
+  cat("w1 = ", w[1], "\n")                                      # weights of last iteration      
+  cat("w2 = ", w[2], "\n")
+  cat("bias = ", b, "\n")                                       # bias of last iteration
+  cat("Misclassification rate:", sum(y.hat != y)/n.obs, "\n")   # misclassification rate of last iteration
+  cat("Confusion Matrix:\n", "\n")
   print(table(y, y.hat))                                        # confusion matrix of last iteration
   plot(loss, xlab="# iteration", ylab="log loss", type="l")     # log loss plot to see convergence 
   
