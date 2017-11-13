@@ -18,15 +18,15 @@
                                                                     # MJ LOG: 2200.121117
                                                                     #
                                                                     # for choosing number of layers
-                                                                    #     One hidden layer is sufficient for the large majority of problems.
-                                                                    #     It is just huh?!
+                                                                    #     One hidden layer is sufficient for large majority of problems.
+                                                                    #     It is like huh?!
                                                                     #
-                                                                    # 0 - Only capable of representing linear separable functions or decisions.
+                                                                    # 0 - Only capable of representing linear separable functions/decisions.
                                                                     # 1 - Can approximate any function that contains a continuous mapping
                                                                     #     from one finite space to another.
-                                                                    # 2 - Can represent an arbitrary decision boundary to arbitrary accuracy
-                                                                    #     with rational activation functions and can approximate any smooth
-                                                                    #     mapping to any accuracy.
+                                                                    # 2 - Can represent an arbitrary decision boundary to 
+                                                                    #     arbitrary accuracy with rational activation functions and 
+                                                                    #     can approximate any smooth mapping to any accuracy.
                                                                     #
                                                                     # for choosing number of neurons
                                                                     #     somewhere between number of inputs and output
@@ -36,8 +36,8 @@
                                                                     #                 the scaling factore can be 2~
                                                                     #     n = sqrt (n.parm * n.target)
                                                                     #
-                                                                    # again, some calls parameters, some calls input, while others call features
-                                                                    # patato (perteito, pertahto)
+                                                                    # again, some calls parameters, some calls input, 
+                                                                    # while others call features; patato (perteito, pertahto)
                                                                     #
 make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
