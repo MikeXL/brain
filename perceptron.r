@@ -21,7 +21,8 @@
                                                                     #     One hidden layer is sufficient for large majority of problems.
                                                                     #     It is like huh?!
                                                                     #
-                                                                    # 0 - Only capable of representing linear separable functions/decisions.
+                                                                    # 0 - Only capable of representing 
+                                                                    #     linear separable functions or decisions.
                                                                     # 1 - Can approximate any function that contains a continuous mapping
                                                                     #     from one finite space to another.
                                                                     # 2 - Can represent an arbitrary decision boundary to 
