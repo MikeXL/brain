@@ -1,5 +1,5 @@
-
-
+                                                                #
+                                                                #
                                                                 # MJ LOG: 1419.121117
                                                                 #
                                                                 # finally, phew, 
@@ -38,18 +38,17 @@
                                                                 #
                                                                 # again, some calls parameters, some calls input, while others call features
                                                                 # patato (perteito, pertahto)
-                                                            
-make.it.so <- function(){
+                                                                #
+make.it.so <- function(){                                       #
                                                                 #
                                                                 # Prepare data for model 
                                                                 #            species ~ Sepal.Length + Sepal.Width
                                                                 #
   x1 <- head(iris$Sepal.Length, 100)                            # iris sepal length
   x2 <- head(iris$Sepal.Width, 100)                             # iris sepal width
-  x  <- matrix(cbind(x1, x2), nrow=100, ncol = 2)                
+  x  <- matrix(cbind(x1, x2), nrow=100, ncol = 2)               # 
   y  <- append(rep(1, 50), rep(-1, 50))                         # setosa = 1, versicolor = -1, discard virginica
-  
-  
+                                                                # until one day I'm drunk enough to write softmax function
                                                                 #
                                                                 # vannila it is
                                                                 #        2 inputs
@@ -57,16 +56,15 @@ make.it.so <- function(){
                                                                 #        1 perceptron
                                                                 #        1 output with 2 levels
                                                                 #
-  n.iter <- 5000                                                  # number of iterations
+  n.iter <- 5000                                                # number of iterations
   epoch  <- 1                                                   # mini batch, no used here
                                                                 #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                 #   RoT: can fit into CPU/GPU memory
   n.obs  <- nrow(x)                                             # number of samples / observations
   n.parm <- ncol(x)                                             # number of parameters / input / features
-  b      <- 0.01                                                   # bias, not really used here, or could try out .01
+  b      <- 0.01                                                # bias, not really used here, or could try out .01
                                                                 #       mind bias is per neuron, 
                                                                 #       and can be initialized the same way as weights
-
   alpha  <- 0.1                                                 # learning rate
   y.hat  <- rep(0, n.obs)                                       # predications y.hat, baseline
   prob   <- rep(0, n.obs)                                       #   probability
@@ -76,9 +74,9 @@ make.it.so <- function(){
                                                                 # large w would end up at the flat side of tanh
                                                                 # slow down the gradient descent, slow to converge for whole nn
   eps    <- 1e-15                                               # epsilon  
-  
-  for(i in 1:n.iter) {
-    for(j in 1:n.obs){
+                                                                #
+  for(i in 1:n.iter) {                                          # iterate
+    for(j in 1:n.obs){                                          #  through all observations / samples
       p        <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)         # tanh activation
                                                                 # other activation function like identity linear, cos, sigmoid
                                                                 # softmax for multi-class target
@@ -102,8 +100,8 @@ make.it.so <- function(){
                                                                 #    alpha = k / sqrt(epoch)   * alpha
                                                                 #    manual decay
                                                                 # feels like monte carlo simulation all over again, um
-      
-    }
+                                                                #
+    }                                                           #  // END LOOP OBSERVATIONS //
                                                                 # log loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
                                                                 # kaggle usually uses log loss to score classifier performance
                                                                 # might be a bad naming convention here
@@ -112,7 +110,7 @@ make.it.so <- function(){
                                                                 #          cost is for full data set
                                                                 #     objective is for gernal naming of the objective function
                                                                 # I'm like whatever, just pick the one you like
-    loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))  
+    loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob))) #
                                                                 # derivative log loss seems more appropriate for nn
                                                                 #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
                                                                 # dL[i] <- -mean(y/prob+(1-y)/(1-prob))                   
@@ -121,33 +119,33 @@ make.it.so <- function(){
                                                                 #  monitoring the converge trend of w ?
                                                                 #  monitoring log loss or derivate log loss
                                                                 #  cross validation to compare training error and validation error ?
-    
+                                                                #
                                                                 # batch norm ?
                                                                 # reduce cov shift through layers
-    
+                                                                #
                                                                 # test time considerations of mu, sigma for normalization
                                                                 # estimate using exponentially weighted average
                                                                 # across mini batches
-    
-  }
-
+                                                                #
+  }                                                             # // END LOOP ITER //
+                                                                #
   cat("Results for last iteration:", i, "\n")                   # show 'n tell
   cat("w1 = ", w[1], "\n")                                      # weights of last iteration      
-  cat("w2 = ", w[2], "\n")
+  cat("w2 = ", w[2], "\n")                                      #
   cat("bias = ", b, "\n")                                       # bias of last iteration
   cat("Misclassification rate:", sum(y.hat != y)/n.obs, "\n")   # misclassification rate of last iteration
-  cat("Confusion Matrix:\n", "\n")
+  cat("Confusion Matrix:\n", "\n")                              #
   print(table(y, y.hat))                                        # confusion matrix of last iteration
   plot(loss, xlab="# iteration", ylab="log loss", type="l")     # log loss plot to see convergence 
-  
+                                                                #
                                                                 # how to store the model for future prediction ?
                                                                 # pretty much doing the high school math for prediction 
                                                                 #     pred = sign(tanh(w1 * x1 + w2 * x2 + b))
-  
+                                                                #
                                                                 # dropouts in deep network
-}
-
-
+}                                                               # // MAKE IT SO //
+                                                                #
+                                                                #
                                                                 #
                                                                 # LLAP
                                                                 #
