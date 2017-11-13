@@ -29,7 +29,11 @@
                                                                 #     mapping to any accuracy.
                                                                 #
                                                                 # for choosing number of neurons
+                                                                #     somewhere between number of inputs and output
+                                                                #     I tend to like the square root formula below
+                                                                #
                                                                 #     n = n.obs / (2 * (n.parm + n.target))
+                                                                #                 the scaling factore can be 2~
                                                                 #     n = sqrt (n.parm * n.target)
                                                                 #
                                                                 # again, some calls parameters, some calls input, while others call features
