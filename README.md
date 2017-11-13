@@ -1,8 +1,10 @@
 # brain
 a gleeful study of neural network and implementing an _vanilla_ nn
 
-_inspired by Andrew Ng's [deep learning courses][dl]_  
-_another good MooC I'd like to take [Fast AI][fast]_  
+The code perceptron.r is mostly inspired by Andrew Ng's _[deep learning courses][dl]_  
+Another good MooC I'd like to take is _[Fast AI][fast]_  
+(Rachel's profile is more interesting, as she has done tons of sims and nn)  
+
 
 Cheers
 
@@ -85,3 +87,4 @@ make.it.so()
 [fast]: http://fast.ai
 [utube]: https://youtu.be/40riCqvRoMs?t=14m45s "celebrate failure"
 [inception]: http://knowyourmeme.com/memes/we-need-to-go-deeper
+[fastai_tube]: https://www.youtube.com/playlist?list=PLeRmE3N7ThDC6uD5aSuB6t3HRwzDDw9Sq
