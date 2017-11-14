@@ -143,8 +143,7 @@ make.it.so <- function(iter=100, bias=0){                           #
   cat("w2 = ", w[2], "\n")                                          #
   cat("bias = ", b, "\n")                                           # bias of last iteration
   cat("Misclassification rate:", sum(y.hat != y)/n.obs, "\n")       # misclassification rate of last iteration
-  cat("Confusion Matrix:\n", "\n")                                  #
-  print(table(y, y.hat))                                            # confusion matrix of last iteration
+  plot(table(y, y.hat), color="#66cc00", main="confusion matrix")   # confusion matrix of last iteration
   plot(loss, xlab="# iteration", ylab="log loss", type="l")         # log loss plot to see convergence 
                                                                     #
                                                                     # how to store the model for future prediction ?
