@@ -88,6 +88,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #     sigmoid/logistic
                                                                     #     softmax for multi-class target
                                                                     #     linear, without applying any function
+                                                                    #     softplus, ReLU
                                                                     #
       prob[j]  <- ifelse(p>0, p, 1+p)                               # probablity for y.hat==1
       prob[j]  <- pmin(pmax(prob[j], 1e-15), 1-1e-15)               # account 0 and 1 value for log loss
