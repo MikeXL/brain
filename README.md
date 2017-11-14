@@ -1,9 +1,9 @@
 # brain
 a gleeful study of neural network and implementing an _vanilla_ nn
 
-The code perceptron.r is inspired by Andrew Ng's _[deep learning courses][dl]_ and loads of articles on stack exchange.  
+The code perceptron.r is inspired by Andrew Ng's DeepLearning.ai and loads of articles on stack exchange.  
 
-More on [wiki pages][wiki].  
+Course notes are on [wiki pages][wiki].  
 
 
 ![perceptron][neuron]
