@@ -18,7 +18,7 @@ Deep Learning Courses - my notes anyway
 Similar to hadoop, the cheap commodity hardware make it possible.
 The cheaper and faster computing power that take off deep learning, or artificial intelligence.  
 Lotsa research ideas dated back to 60s or 70s, it is today, that we could do the calculations in minutes, even on a cell phone
-that would take an mainframe days.  
+that would take an mainframe days or months if not years.  
 And rather than figuring out the algorithm to make things work, neural network is mostly following neuro science studies and model after human brain, even just a tiny bit, charmingly work well.  
 #### Week 1: Introduction to deep learning
 #### Week 2: Neural Network Basics
@@ -89,8 +89,10 @@ Neural style transfer,  computer can do art too, not just art, but Picasso art.
 
 ### Course 5: Sequence Models
 Furthermore, RNN is here to solve particular set of problems, _speech recognition, music synthesis, translation, NLP_.  
+At the time I complete all these courses, this one is not available yet. May come back revisit again, or just start reading various frameworks and research papers.
 
-One more thing I like this course is that the interviews :)
+One more thing I like this course is that the interviews :)  
+Deep reinforcement learning
 
 P.P.S
 To load the source and _boldly_ go
