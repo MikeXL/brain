@@ -83,8 +83,12 @@ make.it.so <- function(iter=100, bias=0){                           #
   for(i in 1:n.iter) {                                              # iterate
     for(j in 1:n.obs){                                              #  through all observations / samples
       p        <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)             # tanh activation
-                                                                    # other activation function like identity linear, cos, sigmoid
-                                                                    # softmax for multi-class target
+                                                                    # other activation function like 
+                                                                    #     cos
+                                                                    #     sigmoid/logistic
+                                                                    #     softmax for multi-class target
+                                                                    #     linear, without applying any function
+                                                                    #
       prob[j]  <- ifelse(p>0, p, 1+p)                               # probablity for y.hat==1
       prob[j]  <- pmin(pmax(prob[j], 1e-15), 1-1e-15)               # account 0 and 1 value for log loss
       y.hat[j] <- sign(p)                                           # predicated y
