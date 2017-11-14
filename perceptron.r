@@ -148,6 +148,17 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #     pred = tanh(w1 * x1 + w2 * x2 + b)
                                                                     #
                                                                     # dropouts in deep network
+                                                                    #  it seems insane to randomly kill neurons in the network
+                                                                    #  and shockingly it works
+                                                                    #  then think about that our brain cells die every single seconds
+                                                                    #  we turns out to be ok, well, suffering memory loss or hardly recall
+                                                                    #  the issue here is not to kill in training set, 
+                                                                    #  rather how to treat validation and testing set, trick was ...
+                                                                    #  double the training weights (if my brain cell for that was not killed)
+                                                                    #  think again, it is like Darwin's evolution theory
+                                                                    #
+                                                                    # inception network
+                                                                    #
 }                                                                   # // MAKE IT SO //
                                                                     #
                                                                     #
