@@ -15,26 +15,40 @@ P.S.
 Deep Learning Courses - my notes anyway   
 
 ### Course 1: Neural Networks and Deep Learning
+Similar to hadoop, the cheap commodity hardware make it possible.
+The cheaper and faster computing power that take off deep learning, or artificial intelligence.  
+Lotsa research ideas dated back to 60s or 70s, it is today, that we could do the calculations in minutes, even on a cell phone
+that would take an mainframe days.  
+And rather than figuring out the algorithm to make things work, neural network is mostly following neuro science studies and model after human brain, even just a tiny bit, charmingly work well.  
 #### Week 1: Introduction to deep learning
 #### Week 2: Neural Network Basics
 #### Week 3: Shallow neural networks
 choice of activation function - identity, sigmoid, cos, tanh  
-random initialization of weight parameters
+random initialization of weight parameters  
 
+Majority, or say 95% of the business problems can be solved with _vanilla neural network_.
 #### Week 4: Deep Neural Networks
 forward and backward propagation  
 parameters and Hyperparameter
 
+The important question, that is answered in this course, why go deep? Computes faster to go deeper than wider.   
+Similar idea to dimensionality reduction, when go deeper, it requires less parameters/weights on each layer.  
 ### Course 2: Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
 #### Week 1: Practical aspects of Deep Learning
+Bias / Variance trade off  
 Regularization  
-Normalize inputs
+Normalize inputs  
 Vanishing /Exploding gradients
 #### Week 2: Optimization algorithms
+epoch and mini batches  
+learning rate decay  
+pony ride / saddle point of the local optima problem  
 #### Week 3: Hyperparameter tuning, Batch Normalization and Programming Frameworks
 Hyperparameter {learning rate alpha, bias, epoch, }  
+batch norm process one mini-batch at a time; watch out for test time
 softmax  
-and the frameworks backed by giants
+
+and the frameworks backed by giants  
 TF    .... google  
 CNTK  .... msft  
 mxnet .... amazon  
@@ -50,6 +64,8 @@ Build first system quickly, then iteration. Keep the try-n-err, hurray for progr
 14:55 .. [celebrate failure][utube] at a ted talk.. that is the RIGHT attitude in this amazing and challenging field... ;)
 
 > if you are applying to your machine learning algorithms to a new application, and if your main goal is to build something that works, as opposed to if your main goal is to invent a new machine learning algorithm which is a different goal, then your main goal is to get something that works really well. I'd encourage you to build something quick and dirty. Use that to do bias/variance analysis, use that to do error analysis and use the results of those analysis to help you prioritize where to go next.
+
+Transfer learning, model reuse is kinda cool. Well, a big business to sell pre-trained Models too.
 
 ### Course 4: Convolutional Neural Networks
 CNN is here to solve a particular problem, _computer vision_.
@@ -74,6 +90,7 @@ Neural style transfer,  computer can do art too, not just art, but Picasso art.
 ### Course 5: Sequence Models
 Furthermore, RNN is here to solve particular set of problems, _speech recognition, music synthesis, translation, NLP_.  
 
+One more thing I like this course is that the interviews :)
 
 P.P.S
 To load the source and _boldly_ go
