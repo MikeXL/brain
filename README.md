@@ -1,15 +1,10 @@
 # brain
 a gleeful study of neural network and implementing an _vanilla_ nn
 
-The code perceptron.r is mostly inspired by Andrew Ng's _[deep learning courses][dl]_  
+The code perceptron.r is inspired by Andrew Ng's _[deep learning courses][dl]_ and loads of articles on stack exchange.  
 
-Another good MooC I'd like to take is _[Fast AI][fast]_  
-(Rachel's profile is more interesting, as she has done tons of sims and nn)    
+More on [wiki pages][wiki].  
 
-And this [deep learning course][google_dl] offered by Google and Udacity, I found they have the best visual for concept explanation.
-
-
-Cheers
 
 ![perceptron][neuron]
 
@@ -29,3 +24,4 @@ make.it.so()
 [inception]: http://knowyourmeme.com/memes/we-need-to-go-deeper
 [fastai_tube]: https://www.youtube.com/playlist?list=PLeRmE3N7ThDC6uD5aSuB6t3HRwzDDw9Sq
 [google_dl]: https://www.udacity.com/course/deep-learning--ud730
+[wiki]: https://github.com/MikeXL/brain/wiki
