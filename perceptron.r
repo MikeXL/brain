@@ -44,6 +44,7 @@
                                                                     #
                                                                     # set two parameters for iterations and bias
                                                                     #
+                                                                    #
 make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
                                                                     # Prepare data for model 
@@ -149,7 +150,12 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
                                                                     # how to store the model for future prediction ?
                                                                     # pretty much doing the high school math for prediction 
-                                                                    #     pred = tanh(w1 * x1 + w2 * x2 + b)
+                                                                    # remember to do the SIGN thing to get the classifier
+                                                                    #
+                                                                    #     pred = ACT(w1 * x1 + w2 * x2 + b)
+                                                                    #
+}                                                                   # // MAKE IT SO //
+                                                                    #
                                                                     #
                                                                     # dropouts in deep network
                                                                     #  it seems insane to randomly kill neurons in the network
@@ -161,9 +167,21 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #  double the training weights (if my brain cell for that was not killed)
                                                                     #  think again, it is like Darwin's evolution theory
                                                                     #
+                                                                    # MJ LOG: 1818.141117
+                                                                    #
+                                                                    # ResNet
+                                                                    # CNN
+                                                                    # RNN
+                                                                    # Capsule
+                                                                    # Time series prediction
+                                                                    # Not really nn, but worth look into xgboost
+                                                                    #
+                                                                    # Advice from Hinton
+                                                                    #   If everyone tells you that is plain wrong, 
+                                                                    #   then you know you are onto something.
+                                                                    #
                                                                     # inception network
                                                                     #
-}                                                                   # // MAKE IT SO //
                                                                     #
                                                                     #
                                                                     #
