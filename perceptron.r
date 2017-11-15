@@ -78,7 +78,7 @@ make.it.so <- function(iter=100, bias=0){                           #
   # w    <- w/sum(w^2)                                              # normalize the initialization, overkill for this ?
                                                                     # large w would end up at the flat side of tanh
                                                                     # slow down the gradient descent, slow to converge for whole nn
-  eps    <- 1e-15                                                   # epsilon  
+  eps    <- 1e-15                                                   # epsilon, threshold for log loss to deal corner case of 0 and 1  
                                                                     #
   for(i in 1:n.iter) {                                              # iterate
     for(j in 1:n.obs){                                              #  through all observations / samples
@@ -100,7 +100,7 @@ make.it.so <- function(iter=100, bias=0){                           #
       eta  <- y[j] - y.hat[j]                                       # error
                                                                     # if this is kept, then MAE, MSE can be calculated later
                                                                     # see previous commits, MAE, MSE plots were removed
-                                                                    # loss     <- -(y * log(prob) + (1 - y) * log(1 - prob))
+                                                                    # loss     <- -(y * log(p) + (1 - y) * log(1 - p))
                                                                     # as they really not a good indicator
       w[1] <- w[1] + alpha * eta * x[j,1]                           # update w1, stochastic gradient descent
       w[2] <- w[2] + alpha * eta * x[j,2]                           # update w2
@@ -112,7 +112,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # feels like monte carlo simulation all over again, um
                                                                     #
     }                                                               #  // END LOOP OBSERVATIONS //
-                                                                    # log loss L(...) = -(y.hat*log(y) + (1-y)*log(1-y.hat))
+                                                                    # log loss L(...) = -(y*log(p) + (1-y)*log(1-p))
                                                                     # kaggle usually uses log loss to score classifier performance
                                                                     # might be a bad naming convention here
                                                                     # some say loss and cost are synonymous
