@@ -37,6 +37,11 @@
                                                                     #                 the scaling factore can be 2~
                                                                     #     n = sqrt (n.parm * n.target)
                                                                     #
+                                                                    #    the above formula are not golden rules, rather reference
+                                                                    #  "Very simple. 
+                                                                    #   Just keep adding layers until the test error does not improve anymore."
+                                                                    #  - G. Hinton
+                                                                    #
                                                                     # again, some calls parameters, some calls input, 
                                                                     # while others call features; patato (perteito, pertahto)
                                                                     #
