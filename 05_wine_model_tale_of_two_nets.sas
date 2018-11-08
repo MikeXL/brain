@@ -1,8 +1,14 @@
-%include '~/code/05_wine_data.sas';  ** data file **;
+nclude '~/code/05_wine_data.sas';  ** data file **;
 
+* one hot encoding *;
 data wine;
-    set wine (where=(class <3));
-    class = class -1;
+	set wine;
+	if class = 1 then class_1 = 1;
+	else class_1 = 0;
+	if class = 2 then class_2 = 1;
+	else class_2 = 0;
+	if class = 3 then class_3 = 1;
+	else class_3 = 0;
 run;
 
 %let ds = wine;
@@ -19,7 +25,8 @@ run;
       color_intensity  
       hue  
       od280_od315_of_diluted_wines  
-      proline;
+      proline
+      ;
       
 **** vanilla neural net with one layer of six neurons ****;      
 proc hpneural data=&ds.;
@@ -27,7 +34,7 @@ proc hpneural data=&ds.;
     input &vars. ;
     hidden 6;
     train;
-    id alcohol hue color_intensity malic_acid &target.;
+    id alcohol hue color_intensity malic_acid &target. &target._1 &target._2 &target._3;
     score out=wine_pred_nn;
  run;
  
@@ -47,16 +54,22 @@ run;
  run;
  proc sgplot data=wine_pred_nn;
     scatter x=alcohol y=hue /colorresponse=p_&target.1 colormodel=(blue green orange red);
+    title "ICE";
  run;
-
+title;
 ** explore model performance with ROC, lift, or calibration plot **;
 ** calibration plot .... empirical probability vs. predicted probability **;
 
 proc sgplot data=wine_pred_nn noautolegend aspect=1;
-   loess x=p_class1 y=class / interpolation=cubic clm;   /* smoothing value by AICC (0.657) */
+   loess x=p_class1 y=class_1 / interpolation=cubic  lineattrs=(color=green);   /* smoothing value by AICC (0.657) */
+   loess x=p_class2 y=class_2 / interpolation=cubic  lineattrs=(color=blue);   /* smoothing value by AICC (0.657) */
+   loess x=p_class3 y=class_3 / interpolation=cubic  lineattrs=(color=red);   /* smoothing value by AICC (0.657) */
    lineparm x=0 y=0 slope=1 / lineattrs=(color=grey pattern=dash);
+   yaxis label= "observed probability";
+   xaxis label= "predicted probability";
+   title "Calibration Plot - nnet";
 run;
-
+title;
 
  proc hpbnet data=&ds.
   missingint=impute missingnom=level 
@@ -64,6 +77,7 @@ run;
 
     target &target.;
     input &vars.;
+    id alcohol hue color_intensity malic_acid &target. &target._1 &target._2 &target._3;
     output network=net varselect=vsel fit=fit pred=wine_pred_bnet;
 run;
 
@@ -85,13 +99,28 @@ proc print data=net /*noobs label */ (obs=100);
     var _parentnode_  _childnode_ ;
     where _type_ = "STRUCTURE";
 run;   
+ods graphics on;
+proc freq data=wine_pred_nn;
+	tables &target * i_&target.;
+run;
+proc logistic data=wine_pred_nn plots=all;
+    class class_1 i_class_1;
+    model &target_1 = i_&target. /nofit;
+    roc &target._1;
+    title "nnet";
+run;
+title;
 
 ** calibration plot **;
 
 proc sgplot data=wine_pred_bnet noautolegend aspect=1;
-   loess x=p_class1 y=class / interpolation=cubic clm;   /* smoothing value by AICC (0.657) */
+   loess x=p_class1 y=class_1 / interpolation=cubic  lineattrs=(color=green);   /* smoothing value by AICC (0.657) */
+   loess x=p_class2 y=class_2 / interpolation=cubic  lineattrs=(color=blue);   /* smoothing value by AICC (0.657) */
+   loess x=p_class3 y=class_3 / interpolation=cubic  lineattrs=(color=red);   /* smoothing value by AICC (0.657) */
    lineparm x=0 y=0 slope=1 / lineattrs=(color=grey pattern=dash);
+   yaxis label= "observed probability";
+   xaxis label= "predicted probability";
+   title "Calibration Plot -bnet";
 run;
-
-
+title;
 
