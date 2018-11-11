@@ -65,7 +65,6 @@ tlosses, vlosses = [], []
 model.apply(init_weight)
 # begin training
 for _ in range(EPOCH):
-    if _%4 < 3:
       #print _
       def closure():
         optim.zero_grad()
@@ -75,18 +74,17 @@ for _ in range(EPOCH):
         loss.backward()
         return loss
       optim.step(closure)
-    else:
       #print "validation %s" %_
-      with torch.no_grad():
-        pred = model(x)
-        l = lf(pred, y)
-        vlosses.append(l.item())
+      #with torch.no_grad():
+      #  pred = model(x)
+      #  l = lf(pred, y)
+      #  vlosses.append(l.item())
 
 for _ in model.parameters():
   print _
 
 plt.plot(tlosses, 'g-', label='trianing loss')
-plt.plot(vlosses, 'b--', label='validation loss')
+#plt.plot(vlosses, 'b--', label='validation loss')
 plt.legend(loc="lower right")
 plt.title("training vs. validation")
 
@@ -99,21 +97,20 @@ tlosses, vlosses = [], []
 # initialize network weight
 model.apply(init_weight)
 for _ in range(EPOCH):
-    if _%4 < 3:
       optim.zero_grad()
       yhat = model(x)
       loss = lf(yhat, y)
       tlosses.append(loss.item())
       loss.backward()
       optim.step()
-    else:
+    
       # validation
-      with torch.no_grad():
-        pred = model(x)
-        l = lf(pred, y)
-        vlosses.append(l.item())
+      #with torch.no_grad():
+      #  pred = model(x)
+      #  l = lf(pred, y)
+      #  vlosses.append(l.item())
 
 plt.plot(tlosses, 'g-', label='trianing loss')
-plt.plot(vlosses, 'b--', label='validation loss')
+#plt.plot(vlosses, 'b--', label='validation loss')
 plt.legend(loc="lower right")
 plt.title("training vs. validation")
