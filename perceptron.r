@@ -1,5 +1,10 @@
                                                                     #
                                                                     #
+                                                                    # MJ LOG: 2218.151118
+                                                                    #
+                                                                    # A year later, one bit matrix multiplication doesn't hurt
+                                                                    #
+                                                                    #
                                                                     # MJ LOG: 1419.121117
                                                                     #
                                                                     # finally, phew, 
@@ -55,10 +60,10 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # Prepare data for model 
                                                                     #            species ~ Sepal.Length + Sepal.Width
                                                                     #
-  x1 <- head(iris$Sepal.Length, 100)                                # iris sepal length
-  x2 <- head(iris$Sepal.Width, 100)                                 # iris sepal width
-  x  <- matrix(cbind(x1, x2), nrow=100, ncol = 2)                   # 
-  y  <- append(rep(1, 50), rep(-1, 50))                             # setosa = 1, versicolor = -1, discard virginica
+                                                                    # iris sepal length
+                                                                    # iris sepal width
+  x <- as.matrix(unname(head(iris[,1:2], 100)), nrow=100, ncol=2)   #
+  y <- as.matrix(append(rep(1, 50), rep(-1, 50)), nrow=100, ncol=1) # setosa = 1, versicolor = -1, discard virginica
                                                                     # until one day I'm drunk enough to write softmax function
                                                                     #
                                                                     # vannila it is
@@ -69,6 +74,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #
   n.iter <- iter                                                    # number of iterations
   epoch  <- 1                                                       # mini batch, no used here
+                                                                    # some say epoch iteration, others say iteration epoch, why bother
                                                                     #   epoch recommendation 2^(6~9) = 64, 128, 256, 512
                                                                     #   RoT: can fit into CPU/GPU memory
   n.obs  <- nrow(x)                                                 # number of samples / observations
@@ -86,9 +92,9 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # slow down the gradient descent, slow to converge for whole nn
   eps    <- 1e-15                                                   # epsilon, threshold for log loss to deal corner case of 0 and 1  
                                                                     #
-  for(i in 1:n.iter) {                                              # iterate
-    for(j in 1:n.obs){                                              #  through all observations / samples
-      p        <- tanh(w[1]*x[j, 1] + w[2]*x[j, 2] + b)             # tanh activation
+  for(i in 1:n.iter) {                                              # iterate through all observations / samples
+                                                                    #
+      p     <- tanh(x %*% w + b)                                    # tanh activation
                                                                     # other activation function like 
                                                                     #     cos
                                                                     #     sigmoid/logistic
@@ -96,28 +102,26 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #     linear, without applying any function
                                                                     #     softplus, ReLU
                                                                     #
-      prob[j]  <- ifelse(p>0, p, 1+p)                               # probablity for y.hat==1
-      prob[j]  <- pmin(pmax(prob[j], 1e-15), 1-1e-15)               # account 0 and 1 value for log loss
-      y.hat[j] <- sign(p)                                           # predicated y
+      prob  <- ifelse(p>0, p, 1+p)                                  # probablity for y.hat==1
+      prob  <- pmin(pmax(prob, 1e-15), 1-1e-15)                     # account 0 and 1 value for log loss
+      y.hat <- sign(p)                                              # predicated y
                                                                     # perhaps better use to account 0
                                                                     # doubting the function of sign, as it would miss the value 0
                                                                     # perhaps better be explicit on >=0 than using sign
                                                                     # y.hat    <- (p>=0)
-      eta  <- y[j] - y.hat[j]                                       # error
+      eta  <- y - y.hat                                             # error
                                                                     # if this is kept, then MAE, MSE can be calculated later
                                                                     # see previous commits, MAE, MSE plots were removed
                                                                     # loss     <- -(y * log(p) + (1 - y) * log(1 - p))
-                                                                    # as they really not a good indicator
-      w[1] <- w[1] + alpha * eta * x[j,1]                           # update w1, stochastic gradient descent
-      w[2] <- w[2] + alpha * eta * x[j,2]                           # update w2
-      b    <- b    + alpha * eta * b                                # update bias
+    for(j in 1:n.parm){                                             # as they really not a good indicator
+      w[j] <- w[j] + alpha * x[,j] %*% eta                          # update w, stochastic gradient descent
+      b    <- b    + sum(alpha * eta * b)                           # update bias
       # alpha = alpha /(1+decay_rate * epoch)                       # learning rate decay, might be last thing to try for tuning
                                                                     #    alpha = power(.95, epoch) * alpha
                                                                     #    alpha = k / sqrt(epoch)   * alpha
                                                                     #    manual decay
-                                                                    # feels like monte carlo simulation all over again, um
+    }                                                               # feels like monte carlo simulation all over again, um
                                                                     #
-    }                                                               #  // END LOOP OBSERVATIONS //
                                                                     # log loss L(...) = -(y*log(p) + (1-y)*log(1-p))
                                                                     # kaggle usually uses log loss to score classifier performance
                                                                     # might be a bad naming convention here
@@ -126,7 +130,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #          cost is for full data set
                                                                     #     objective is for gernal naming of the objective function
                                                                     # I'm like whatever, just pick the one you like
-    loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))     #
+  loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))       #
                                                                     # derivative log loss seems more appropriate for nn
                                                                     #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
                                                                     # dL[i] <- -mean(y/prob+(1-y)/(1-prob))                   
