@@ -86,7 +86,7 @@ make.it.so <- function(iter=100, bias=0){                           #
   y.hat  <- rep(0, n.obs)                                           # predications y.hat, baseline
   prob   <- rep(0, n.obs)                                           #   probability
   loss   <- rep(0, n.iter)                                          #   record log loss for each iteration
-  w      <- rnorm(2) * .01                                          # initialize weight, start small
+  w      <- as.matrix(rnorm(n.parm) * .01, nrow=n.parm)             # initialize weight, start small
   # w    <- w/sum(w^2)                                              # normalize the initialization, overkill for this ?
                                                                     # large w would end up at the flat side of tanh
                                                                     # slow down the gradient descent, slow to converge for whole nn
