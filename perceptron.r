@@ -113,8 +113,9 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # if this is kept, then MAE, MSE can be calculated later
                                                                     # see previous commits, MAE, MSE plots were removed
                                                                     # loss     <- -(y * log(p) + (1 - y) * log(1 - p))
-    for(j in 1:n.parm){                                             # as they really not a good indicator
-      w[j] <- w[j] + alpha * x[,j] %*% eta                          # update w, stochastic gradient descent
+                                                                    # as they really not a good indicator
+      w   <- w  + alpha * t(t(eta) %*% x)                           # update w, stochastic gradient descent
+                                                                    #  this sucker needs couple transposes
       b    <- b    + sum(alpha * eta * b)                           # update bias
       # alpha = alpha /(1+decay_rate * epoch)                       # learning rate decay, might be last thing to try for tuning
                                                                     #    alpha = power(.95, epoch) * alpha
