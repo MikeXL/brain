@@ -5,6 +5,9 @@
                                                                     # A year later, one bit matrix multiplication doesn't hurt
                                                                     #
                                                                     #
+                                                                    #
+                                                                    #
+                                                                    #
                                                                     # MJ LOG: 1419.121117
                                                                     #
                                                                     # finally, phew, 
@@ -184,6 +187,8 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # RNN
                                                                     # Capsule
                                                                     # Time series prediction
+                                                                    # anomaly detection
+                                                                    # reinforcement learning, q learn
                                                                     # Not really nn, but worth look into xgboost
                                                                     #
                                                                     # Advice from Hinton
