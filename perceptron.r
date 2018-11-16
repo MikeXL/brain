@@ -66,6 +66,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     # iris sepal length
                                                                     # iris sepal width
   x <- as.matrix(unname(head(iris[,1:2], 100)), nrow=100, ncol=2)   #
+  x <- scale(x)                                                     #
   y <- as.matrix(append(rep(1, 50), rep(-1, 50)), nrow=100, ncol=1) # setosa = 1, versicolor = -1, discard virginica
                                                                     # until one day I'm drunk enough to write softmax function
                                                                     #
@@ -106,25 +107,25 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #     softplus, ReLU
                                                                     #
       prob  <- ifelse(p>0, p, 1+p)                                  # probablity for y.hat==1
-      prob  <- pmin(pmax(prob, 1e-15), 1-1e-15)                     # account 0 and 1 value for log loss
+      prob  <- pmin(pmax(prob, eps), eps)                           # account 0 and 1 value for log loss
       y.hat <- sign(p)                                              # predicated y
                                                                     # perhaps better use to account 0
                                                                     # doubting the function of sign, as it would miss the value 0
                                                                     # perhaps better be explicit on >=0 than using sign
                                                                     # y.hat    <- (p>=0)
-      eta  <- y - y.hat                                             # error
+      eta  <- y - prob                                              # error
                                                                     # if this is kept, then MAE, MSE can be calculated later
                                                                     # see previous commits, MAE, MSE plots were removed
                                                                     # loss     <- -(y * log(p) + (1 - y) * log(1 - p))
                                                                     # as they really not a good indicator
       w   <- w  + alpha * t(t(eta) %*% x)                           # update w, stochastic gradient descent
+      b   <- b  + sum(alpha * eta * b)                              # update bias
                                                                     #  this sucker needs couple transposes
-      b    <- b    + sum(alpha * eta * b)                           # update bias
       # alpha = alpha /(1+decay_rate * epoch)                       # learning rate decay, might be last thing to try for tuning
                                                                     #    alpha = power(.95, epoch) * alpha
                                                                     #    alpha = k / sqrt(epoch)   * alpha
                                                                     #    manual decay
-    }                                                               # feels like monte carlo simulation all over again, um
+                                                                    # feels like monte carlo simulation all over again, um
                                                                     #
                                                                     # log loss L(...) = -(y*log(p) + (1-y)*log(1-p))
                                                                     # kaggle usually uses log loss to score classifier performance
@@ -134,7 +135,7 @@ make.it.so <- function(iter=100, bias=0){                           #
                                                                     #          cost is for full data set
                                                                     #     objective is for gernal naming of the objective function
                                                                     # I'm like whatever, just pick the one you like
-  loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))       #
+      loss[i] <- -(mean(y * log(prob) + (1 - y) * log(1 - prob)))   #
                                                                     # derivative log loss seems more appropriate for nn
                                                                     #          dL = -(y/y.hat) + (1-y)/(1-y.hat)
                                                                     # dL[i] <- -mean(y/prob+(1-y)/(1-prob))                   
