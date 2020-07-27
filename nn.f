@@ -1,4 +1,10 @@
 C stupidly simple neural net
+C dont bother much
+C R has nnet for single hidden layer
+C Outdated RSNNS for multiple layers
+C or neuralnet though slow
+C last front is pytorch, that calling thru python not ideal
+C possible to utilize libTorch ?? this may look like better project than start from scratch
 C R could only call subroutine and double precision
 C input parameters
 C training matrix x
