@@ -2,7 +2,6 @@ C stupidly simple neural net
 C motivation was to build neural net capability for R
 C
 C Notation, please refer to Andrew Ng. deep learning mooc
-C or here https://cs230.stanford.edu/files/Notation.pdf
 C
 C MJ LOG 20200727.135071 [[[ Perhaps libTorch ? ]]]
 C 
@@ -45,11 +44,12 @@ C tanh'(a) = 1-tanh(a)**2
             dw3 = matmul((1-transpose(a2)**2), dz3)
             dw2 = matmul((1-transpose(a1)**2), dz2)
             dw1 = matmul((1-transpose(x)**2), dz1)
-            
+C update weights            
             w3 = w3 + alpha * dw3
             w2 = w2 + alpha * dw2
             w1 = w1 + alpha * dw1
  69     continue
+C show me the trained network (weights)
         print *, w1, w2, w3
 C prediction ? 
 C  output = f(f(f(newdata * w1) * w2) * w3)
