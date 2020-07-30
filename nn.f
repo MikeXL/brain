@@ -32,9 +32,10 @@ C   input (n*m) -> h1 (12+1) -> h2 (7+1) -> output (n*k)
         dim(nparticle, m,     nh+1)    :: p1
         dim(nparticle, nh+1,  nh+1)    :: p2
         dim(nparticle, nh2+1, k)       :: p3
-        dim(m,     nh1+1)     :: w1, pbest1, gbest1
+        dim(m,      nh1+1)    :: w1, pbest1, gbest1
         dim(nh1+1,  nh2+1)    :: w2, pbest2, gbest2
         dim(nh2+1, k)         :: w3, pbest3, gbest3
+        dim(n, k)             :: output, yhat
 C initialize weights
         do 99 j=1, iter 
         call random_number(p1)
@@ -45,7 +46,8 @@ C pbest
             w1 = reshape(p1(i, :, :), (/m, nh1+1/))
             w2 = reshape(p2(i, :, :), (/nh+1, nh2+1/))
             w3 = reshape(p3(i, :, :), (/nh2+1, k/))
-            call fit(x, w1, w2, w3, y, mse)
+            call fit(x, w1, w2, w3, yhat)
+            mse = sum((y-yhat)**2) / size(y)
             if mse < pbest then 
               pbest = mse
               pbest1 = w1
@@ -60,7 +62,7 @@ C gbest
           gbest2 = pbest2
           gbest3 = pbest3
         end if 
-C update weight 
+C update weights 
         do 71 i=1, nparticle
           w1 = w1 + c1*rand()*(pbest1-w1) + c2*rand()*(gbest1-w1)
           w2 = w1 + c1*rand()*(pbest2-w2) + c2*rand()*(gbest2-w2)
