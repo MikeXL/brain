@@ -28,7 +28,7 @@ C
 C  two hidden layers network for now, code can be changed to accomondate more complex
 C  network topology a.ka. architecture, structure
 C   input (n*m) -> h1 (12+1) -> h2 (7+1) -> output (n*k)
-        parameter (nh1=12, nh2=7, nparticle=1000, c1=2, c2=2)
+        parameter (nh1=12, nh2=7, iter=100, nparticle=1000, c1=2, c2=2)
         dim(nparticle, m,     nh+1)    :: p1
         dim(nparticle, nh+1,  nh+1)    :: p2
         dim(nparticle, nh2+1, k)       :: p3
@@ -36,6 +36,7 @@ C   input (n*m) -> h1 (12+1) -> h2 (7+1) -> output (n*k)
         dim(nh1+1,  nh2+1)    :: w2, pbest2, gbest2
         dim(nh2+1, k)       :: w3, pbest3, gbest3
 C initialize weights
+        do 99 j=1, iter 
         call random_number(p1)
         call random_number(p2)
         call random_number(p3)
@@ -65,8 +66,9 @@ C update weight
           w2 = w1 + c1*rand()*(pbest2-w2) + c2*rand()*(gbest2-w2)
           w3 = w1 + c1*rand()*(pbest3-w3) + c2*rand()*(gbest3-w3)
   71    continue
+  99    continue 
 C show me the trained network (weights)
-        print *, w1, w2, w3
+C        print *, w1, w2, w3
 C prediction ? 
 C  call fit(newdata, gbest1, gbest2, gbest3, output) 
        end subroutine nn
