@@ -45,7 +45,7 @@ C pbest
             w3 = reshape(particle(:), (/nh2+1, k/))
             call fit(x, w1, w2, w3, yhat)
             mse = sum((y-yhat)**2) / size(y)
-            if mse < pbest then 
+            if mse .lt. pbest then 
               pbest = mse
               pbest1 = w1
               pbest2 = w2
@@ -53,7 +53,7 @@ C pbest
             end if
  69     continue
 C gbest
-        if pbest < gbest then 
+        if pbest .lt. gbest then 
           gbest = pbest
           gbest1 = pbest1
           gbest2 = pbest2
