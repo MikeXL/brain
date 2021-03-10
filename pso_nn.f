@@ -2,14 +2,7 @@ C disclaimer: not an working copy
 C       to illustrate the idea of optimizing nn with particle swarm
 C
 C23456789
-        function fx(x)
-          double precision  x
-          fx = 20+(x**2-10*cos(2*3.14*x))
-        end function
-        function fxy(x, y)
-          double precision x, y
-          fxy = (x+2*y-7)**2 + (2*x+y-5)**2
-        end function 
+C
 C particle swarm optimization
 C motivation was to build neural net capability for R
 C  as well trying out new mechanism
@@ -70,6 +63,7 @@ C update particles
          print *, fx(gbest)
          end C 
 C compute nn
+C more work to be done here 
 C      subroutine nn(x, y, n, m, k, newdata, output)
        subroutine nn(w)
 C reshape w into w1,2, ...
