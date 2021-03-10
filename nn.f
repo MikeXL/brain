@@ -1,12 +1,21 @@
 C disclaimer: not an working copy
 C       to illustrate the idea of optimizing nn with particle swarm
 C
-C particle swarm optimization 
+C23456789
+        function fx(x)
+          double precision  x
+          fx = 20+(x**2-10*cos(2*3.14*x))
+        end function
+        function fxy(x, y)
+          double precision x, y
+          fxy = (x+2*y-7)**2 + (2*x+y-5)**2
+        end function 
+C particle swarm optimization
 C motivation was to build neural net capability for R
-C  as well trying out new mechanism 
+C  as well trying out new mechanism
 C    v[] = v[] + c1 * rand() * (pbest[] - present[]) + c2 * rand() * (gbest[] - present[])    (a)
 C    present[] = persent[] + v[]                                                              (b)
-C 
+C
 C FOR each particle
 C    Initialize particle
 C END
@@ -24,45 +33,46 @@ C        Calculate particle velocity according equation (a)
 C        Update particle position according equation (b)
 C    END
 C While maximum iterations or minimum error criteria is not attained
-C23456789
-      subroutine pso(par, f)
-C particle swarm parameters 
-C       w     inertia 
-C       c1    cognitive velocity factor
-C       c2    social velocity 
-        parameter (iter=100, w=.5, c1=1, c2=2)
-C number of particles 
-        npar = size(par)
-C individual best 
-        double precision pbest(npar)
-C global best 
-        double precision gbest 
-C loop thru iterations 
+        program pso
+        parameter (iter=10, w=2.6, c1=.8, c2=.8, npar=12, nd=2)
+        double precision par(npar, nd), pbest(npar, nd)
+        double precision r1(nd), r2(nd), gbest(nd)
         do 99 i=1, iter
 C initialize weights
           call random_number(par)
-C calculate individual pBest and social global gBest 
-          do 69 j=1, npar 
-            call fit(par, fitnss)          
-            if fitnss .lt. pbest then 
-              pbest = fitnss
-            end if 
+          call random_number(pbest)
+          call random_number(gbest)
+C update invdividual best
+          do 69 j=1, npar
+            fitpar = nn(par(j, ))
+            fitbst = nn(pbest(j, ))
+            if (fitpar .lt. fitbst) then
+              pbest(j, ) = par(j, )
+            end if
 69        continue
-C update global best 
-          if pbest .lt. gbest then 
-            gbest = pbest 
+C update global best
+          gbfit = fxy(gbest(1), gbest(2))
+          pbfit  = fxy(pbest(kk, 1), pbest(kk, 2)) 
+          if ( pbfit  .lt. gbfit) then 
+            gbest  = pbest(kk, :)
           end if 
-C update particles 
-          do 77 j=1, npar 
-            call random_number(randp)
-            call random_number(randg)
-            par(j) = w*par(j) + c1*randp*(pbest(j) - par(j)) + c2*randp*(gbest-par(j))
-77        continue 
-99      continue
-      end subroutine pso
-C 
+C update particles
+          do 77 j=1, npar
+            call random_number(r1)
+            call random_number(r2)
+            par(j, ) = w*par(j, ) + 
+     +               c1*r1*(pbest(j, ) - par(j, )) + 
+     +               c2*r2*(gbest - par(j, ))
+
+         gbest = minval(pbest, npar)     
+99      continue       
+         print *, gbest
+         print *, fx(gbest)
+         end C 
 C compute nn
-      subroutine nn(x, y, n, m, k, newdata, output)
+C      subroutine nn(x, y, n, m, k, newdata, output)
+       subroutine nn(w)
+C reshape w into w1,2, ...
 C
 C  two hidden layers network for now, code can be changed to accomondate more complex
 C  network topology a.ka. architecture, structure
